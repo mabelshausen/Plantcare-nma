@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/waterFragment">
 
+    <fragment
+        android:id="@+id/waterFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.water.WaterFragment"
+        android:label="water_fragment"
+        tools:layout="@layout/water_fragment" >
+        <action
+            android:id="@+id/action_waterFragment_to_plantFragment"
+            app:destination="@id/plantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plantFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.plant.PlantFragment"
+        android:label="plant_fragment"
+        tools:layout="@layout/plant_fragment" />
+    <fragment
+        android:id="@+id/roomsFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.rooms.RoomsFragment"
+        android:label="rooms_fragment"
+        tools:layout="@layout/rooms_fragment" >
+        <action
+            android:id="@+id/action_roomsFragment_to_plantFragment"
+            app:destination="@id/plantFragment" />
+    </fragment>
 </navigation>
