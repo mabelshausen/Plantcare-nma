@@ -4,12 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.howest.marijnabelshausen.plantcare.domain.Room
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
 class WaterViewModel : ViewModel() {
@@ -20,14 +16,14 @@ class WaterViewModel : ViewModel() {
         get() = _response
 
     init {
-        getRooms()
+        getPlants()
     }
 
-    private fun getRooms() {
+    private fun getPlants() {
         viewModelScope.launch {
             try {
-                val listResult = PlantCareApi.retrofitService.getRooms()
-                _response.value = "Success: ${listResult.size} Rooms retrieved"
+                val listResult = PlantCareApi.retrofitService.getPlants()
+                _response.value = "Success: ${listResult.size} Plants retrieved"
             } catch (e: Exception) {
                 _response.value = "Failure: " + e.message
             }
