@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/waterFragment"
         android:name="be.howest.marijnabelshausen.plantcare.water.WaterFragment"
-        android:label="water_fragment"
-        tools:layout="@layout/water_fragment" >
+        android:label="@string/app_name"
+        tools:layout="@layout/water_fragment">
         <action
             android:id="@+id/action_waterFragment_to_plantFragment"
             app:destination="@id/plantFragment" />
@@ -17,13 +17,13 @@
     <fragment
         android:id="@+id/plantFragment"
         android:name="be.howest.marijnabelshausen.plantcare.plant.PlantFragment"
-        android:label="plant_fragment"
+        android:label="@string/plant"
         tools:layout="@layout/plant_fragment" />
     <fragment
         android:id="@+id/roomsFragment"
         android:name="be.howest.marijnabelshausen.plantcare.rooms.RoomsFragment"
-        android:label="rooms_fragment"
-        tools:layout="@layout/rooms_fragment" >
+        android:label="@string/rooms"
+        tools:layout="@layout/rooms_fragment">
         <action
             android:id="@+id/action_roomsFragment_to_plantFragment"
             app:destination="@id/plantFragment" />

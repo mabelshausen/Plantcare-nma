@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PlantCare</string>
-    <string name="rooms">Rooms</string>
+    <string name="rooms">My Rooms</string>
+    <string name="plant">Plant Details</string>
 </resources>
