@@ -8,15 +8,16 @@
             type="be.howest.marijnabelshausen.plantcare.water.WaterViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".water.WaterFragment">
+        tools:context=".water.WaterFragment"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@{viewModel.response}" />
 
-    </FrameLayout>
+    </LinearLayout>
 </layout>
