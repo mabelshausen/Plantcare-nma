@@ -3,11 +3,14 @@ package be.howest.marijnabelshausen.plantcare.water
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.howest.marijnabelshausen.plantcare.domain.Room
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class WaterViewModel : ViewModel() {
 
@@ -21,15 +24,13 @@ class WaterViewModel : ViewModel() {
     }
 
     private fun getRooms() {
-        PlantCareApi.retrofitService.getRooms().enqueue(
-            object : Callback<List<Room>> {
-                override fun onResponse(call: Call<List<Room>>, response: Response<List<Room>>) {
-                    _response.value = "Success: ${response.body()?.size} Rooms retrieved"
-                }
-
-                override fun onFailure(call: Call<List<Room>>, t: Throwable) {
-                    _response.value = "Failure: " + t.message
-                }
-            })
+        viewModelScope.launch {
+            try {
+                val listResult = PlantCareApi.retrofitService.getRooms()
+                _response.value = "Success: ${listResult.size} Rooms retrieved"
+            } catch (e: Exception) {
+                _response.value = "Failure: " + e.message
+            }
+        }
     }
 }

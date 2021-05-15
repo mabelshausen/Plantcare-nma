@@ -22,8 +22,8 @@ private val retrofit = Retrofit.Builder()
 
 interface PlantCareApiService {
     @GET("rooms")
-    fun getRooms():
-            Call<List<Room>>
+    suspend fun getRooms():
+            List<Room>
 }
 
 object PlantCareApi {
