@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,16 +9,11 @@
             type="be.howest.marijnabelshausen.plantcare.water.WaterViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plant_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".water.WaterFragment"
-        android:orientation="vertical">
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.response}" />
 
-    </LinearLayout>
 </layout>
