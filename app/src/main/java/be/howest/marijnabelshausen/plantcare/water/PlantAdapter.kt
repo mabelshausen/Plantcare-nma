@@ -1,12 +1,10 @@
 package be.howest.marijnabelshausen.plantcare.water
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import be.howest.marijnabelshausen.plantcare.R
+import be.howest.marijnabelshausen.plantcare.databinding.PlantListViewItemBinding
 import be.howest.marijnabelshausen.plantcare.domain.Plant
 
 class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
@@ -29,24 +27,19 @@ class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<Plan
 
     override fun getItemCount() = data.size
 
-    class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-        val plantName: TextView = itemView.findViewById(R.id.plant_name)
-        val nextWaterTime: TextView = itemView.findViewById(R.id.next_water_time)
-        val waterImage: ImageView = itemView.findViewById(R.id.water_image)
+    class ViewHolder private constructor(val binding: PlantListViewItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Plant, clickListener: PlantListener) {
-            plantName.text = item.name
-            nextWaterTime.text = "Placeholder"
+            binding.plantName.text = item.name
+            binding.nextWaterTime.text = "Placeholder"
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.plant_list_view_item, parent, false)
+                val binding = PlantListViewItemBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(view)
+                return ViewHolder(binding)
             }
         }
     }
