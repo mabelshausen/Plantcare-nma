@@ -27,7 +27,9 @@ class WaterFragment : Fragment() {
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
 
-        val adapter = PlantAdapter()
+        val adapter = PlantAdapter(PlantListener { plantId ->
+
+        })
         binding.plantList.adapter = adapter
 
         viewModel.plants.observe(viewLifecycleOwner, Observer {
