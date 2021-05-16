@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import be.howest.marijnabelshausen.plantcare.databinding.WaterFragmentBinding
 
 class WaterFragment : Fragment() {
@@ -25,6 +26,15 @@ class WaterFragment : Fragment() {
         val binding = WaterFragmentBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
+
+        val adapter = PlantAdapter()
+        binding.plantList.adapter = adapter
+
+        viewModel.plants.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
 
         return binding.root
     }
