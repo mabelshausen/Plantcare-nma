@@ -18,7 +18,11 @@
         android:id="@+id/plantFragment"
         android:name="be.howest.marijnabelshausen.plantcare.plant.PlantFragment"
         android:label="@string/plant"
-        tools:layout="@layout/plant_fragment" />
+        tools:layout="@layout/plant_fragment" >
+        <argument
+            android:name="plantId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/roomsFragment"
         android:name="be.howest.marijnabelshausen.plantcare.rooms.RoomsFragment"
