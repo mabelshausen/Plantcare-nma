@@ -32,6 +32,8 @@ class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<Plan
         fun bind(item: Plant, clickListener: PlantListener) {
             binding.plantName.text = item.name
             binding.nextWaterTime.text = "Placeholder"
+
+            binding.clickListener  = clickListener
         }
 
         companion object {
