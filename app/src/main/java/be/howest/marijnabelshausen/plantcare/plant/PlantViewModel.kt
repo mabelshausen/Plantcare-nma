@@ -28,15 +28,16 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
 
     init {
         getPlant()
-        _name.value = _plant.value?.name
-        _sciName.value = _plant.value?.sciName
-        _age.value = _plant.value?.age.toString()
     }
 
     private fun getPlant() {
         viewModelScope.launch {
             try {
-                _plant.value = PlantCareApi.retrofitService.getPlantById(plantId)
+                val plant = PlantCareApi.retrofitService.getPlantById(plantId)
+                _plant.value = plant
+                _name.value = _plant.value?.name
+                _sciName.value = _plant.value?.sciName
+                _age.value = _plant.value?.age.toString()
             } catch (e: Exception) {
                 //TODO
             }
