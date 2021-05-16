@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.databinding.WaterFragmentBinding
 
 class WaterFragment : Fragment() {
@@ -28,13 +29,19 @@ class WaterFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = PlantAdapter(PlantListener { plantId ->
-
+            viewModel.onPlantClicked(plantId)
         })
         binding.plantList.adapter = adapter
 
         viewModel.plants.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
+            }
+        })
+
+        viewModel.navigateToPlant.observe(viewLifecycleOwner, Observer { plant ->
+            plant?.let {
+
             }
         })
 

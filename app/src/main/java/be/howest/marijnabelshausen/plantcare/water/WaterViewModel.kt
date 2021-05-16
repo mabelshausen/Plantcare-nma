@@ -21,6 +21,11 @@ class WaterViewModel : ViewModel() {
     val plants: LiveData<List<Plant>>
         get() = _plants
 
+    private val _navigateToPlant = MutableLiveData<Int?>()
+
+    val navigateToPlant
+        get() = _navigateToPlant
+
     init {
         getPlants()
     }
@@ -34,5 +39,13 @@ class WaterViewModel : ViewModel() {
                 _response.value = "Failure: " + e.message
             }
         }
+    }
+
+    fun onPlantClicked(id: Int) {
+        _navigateToPlant.value = id
+    }
+
+    fun onPlantNavigated() {
+        _navigateToPlant.value = null
     }
 }
