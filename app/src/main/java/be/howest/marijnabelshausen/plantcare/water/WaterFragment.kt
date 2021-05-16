@@ -39,9 +39,9 @@ class WaterFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToPlant.observe(viewLifecycleOwner, Observer { plant ->
-            plant?.let {
-                this.findNavController().navigate(WaterFragmentDirections.actionWaterFragmentToPlantFragment(plant))
+        viewModel.navigateToPlant.observe(viewLifecycleOwner, Observer { plantId ->
+            plantId?.let {
+                this.findNavController().navigate(WaterFragmentDirections.actionWaterFragmentToPlantFragment(plantId))
                 viewModel.onPlantNavigated()
             }
         })
