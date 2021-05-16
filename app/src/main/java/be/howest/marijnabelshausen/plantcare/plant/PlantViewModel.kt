@@ -13,11 +13,24 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
 
     private val _plant = MutableLiveData<Plant>()
 
-    val plant : LiveData<Plant>
-        get() = _plant
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _name
+
+    private val _sciName = MutableLiveData<String>()
+    val sciName: LiveData<String>
+        get() = _sciName
+
+    private val _age = MutableLiveData<String>()
+    val age: LiveData<String>
+        get() = _age
+
 
     init {
         getPlant()
+        _name.value = _plant.value?.name
+        _sciName.value = _plant.value?.sciName
+        _age.value = _plant.value?.age.toString()
     }
 
     private fun getPlant() {
