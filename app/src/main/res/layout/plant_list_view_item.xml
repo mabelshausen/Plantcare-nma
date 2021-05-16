@@ -7,11 +7,15 @@
         <variable
             name="plant"
             type="be.howest.marijnabelshausen.plantcare.domain.Plant" />
+        <variable
+            name="clickListener"
+            type="be.howest.marijnabelshausen.plantcare.water.PlantListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(plant)}">
 
         <ImageView
             android:id="@+id/water_image"

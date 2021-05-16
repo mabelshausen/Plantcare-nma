@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.domain.Plant
 
-class PlantAdapter : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
+class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
 
     var data =  listOf<Plant>()
         set(value) {
@@ -24,7 +24,7 @@ class PlantAdapter : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     override fun getItemCount() = data.size
@@ -35,7 +35,7 @@ class PlantAdapter : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
         val nextWaterTime: TextView = itemView.findViewById(R.id.next_water_time)
         val waterImage: ImageView = itemView.findViewById(R.id.water_image)
 
-        fun bind(item: Plant) {
+        fun bind(item: Plant, clickListener: PlantListener) {
             plantName.text = item.name
             nextWaterTime.text = "Placeholder"
         }
@@ -50,4 +50,8 @@ class PlantAdapter : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
             }
         }
     }
+}
+
+class PlantListener(val clickListener: (plantId: Int) -> Unit) {
+    fun onClick(plant: Plant) = clickListener(plant.id)
 }
