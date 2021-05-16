@@ -14,15 +14,17 @@ class PlantFragment : Fragment() {
         fun newInstance() = PlantFragment()
     }
 
-    private val viewModel: PlantViewModel by lazy {
-        ViewModelProvider(this).get(PlantViewModel::class.java)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = PlantFragmentBinding.inflate(inflater)
+
+        val application = requireNotNull(this.activity).application
+        val args = PlantFragmentArgs.fromBundle(requireArguments())
+        val viewModelFactory = PlantViewModelFactory(args.plantId)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(PlantViewModel::class.java)
+
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
 
