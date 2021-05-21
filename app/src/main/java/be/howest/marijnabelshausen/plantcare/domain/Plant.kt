@@ -7,6 +7,7 @@ data class Plant (
     var name: String,
     var sciName: String,
     var age: Int,
+    var room_id: Int,
     var waterFreq: Int,
     var lastWatered: String
 )
