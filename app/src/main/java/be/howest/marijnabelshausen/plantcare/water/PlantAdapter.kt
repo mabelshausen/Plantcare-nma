@@ -6,6 +6,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import be.howest.marijnabelshausen.plantcare.databinding.PlantListViewItemBinding
 import be.howest.marijnabelshausen.plantcare.domain.Plant
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
 
@@ -32,7 +35,15 @@ class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<Plan
         fun bind(item: Plant, clickListener: PlantListener) {
             binding.plant = item
             binding.plantName.text = item.name
-            binding.nextWaterTime.text = "Placeholder"
+
+            val lastWatered = LocalDateTime.parse(item.lastWatered, DateTimeFormatter.ISO_DATE_TIME)
+            val diff = Duration.between(lastWatered, LocalDateTime.now())
+            val waterFreqHrs = item.waterFreq.times(24)
+            if (diff.toHours() >= waterFreqHrs) {
+                binding.nextWaterTime.text = "Water now!"
+            } else {
+                binding.nextWaterTime.text = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
+            }
 
             binding.clickListener  = clickListener
         }
