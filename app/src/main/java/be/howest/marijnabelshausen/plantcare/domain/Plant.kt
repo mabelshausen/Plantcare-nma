@@ -4,9 +4,9 @@ import java.util.*
 
 data class Plant (
     val id: Int,
-    val name: String,
-    val sciName: String,
-    val age: Int,
-    val waterFreq: Int,
-    val lastWatered: String
+    var name: String,
+    var sciName: String,
+    var age: Int,
+    var waterFreq: Int,
+    var lastWatered: String
 )
