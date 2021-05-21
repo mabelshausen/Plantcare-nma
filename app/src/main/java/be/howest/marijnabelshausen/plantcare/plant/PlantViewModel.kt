@@ -51,17 +51,21 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
                 _sciName.value = _plant.value?.sciName
                 _age.value = _plant.value?.age
                 _waterFreq.value = _plant.value?.waterFreq
-                val lastWatered = LocalDateTime.parse(_plant.value?.lastWatered, DateTimeFormatter.ISO_DATE_TIME)
-                val diff = Duration.between(lastWatered, LocalDateTime.now())
-                val waterFreqHrs = _waterFreq.value?.times(24) ?: 0
-                if (diff.toHours() >= waterFreqHrs) {
-                    _waterNext.value = "Water now!"
-                } else {
-                    _waterNext.value = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
-                }
+                fillWaterNext()
             } catch (e: Exception) {
                 //TODO
             }
+        }
+    }
+
+    private fun fillWaterNext() {
+        val lastWatered = LocalDateTime.parse(_plant.value?.lastWatered, DateTimeFormatter.ISO_DATE_TIME)
+        val diff = Duration.between(lastWatered, LocalDateTime.now())
+        val waterFreqHrs = _waterFreq.value?.times(24) ?: 0
+        if (diff.toHours() >= waterFreqHrs) {
+            _waterNext.value = "Water now!"
+        } else {
+            _waterNext.value = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
         }
     }
 }
