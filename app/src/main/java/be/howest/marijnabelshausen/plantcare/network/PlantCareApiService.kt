@@ -29,10 +29,10 @@ interface PlantCareApiService {
     suspend fun getRoomById(@Path("id") roomId: Int): Room
 
     @POST("rooms")
-    suspend fun addRoom(@Body room: Room): Room
+    suspend fun addRoom(@Body room: Room): Int
 
     @PUT("rooms/{id}")
-    suspend fun editRoom(@Path("id") roomId: Int, @Body room: Room): Room
+    suspend fun editRoom(@Path("id") roomId: Int, @Body room: Room): Int
 
     @DELETE("rooms/{id}")
     suspend fun deleteRoom(@Path("id") roomId: Int)
@@ -44,10 +44,10 @@ interface PlantCareApiService {
     suspend fun getPlantById(@Path("id") plantId: Int): Plant
 
     @POST("plants")
-    suspend fun addPlant(@Body plant: Plant): Plant
+    suspend fun addPlant(@Body plant: Plant): Int
 
     @PUT("plants/{id}")
-    suspend fun editPlant(@Path("id") plantId: Int, @Body plant: Plant): Plant
+    suspend fun editPlant(@Path("id") plantId: Int, @Body plant: Plant): Int
 
     @DELETE("plants/{id}")
     suspend fun deletePlant(@Path("id") plantId: Int)
