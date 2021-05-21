@@ -53,7 +53,7 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
                 _waterFreq.value = _plant.value?.waterFreq
                 fillWaterNext()
             } catch (e: Exception) {
-                //TODO
+                throw e
             }
         }
     }
@@ -66,6 +66,18 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
             _waterNext.value = "Water now!"
         } else {
             _waterNext.value = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
+        }
+    }
+
+    fun waterPlant() {
+        viewModelScope.launch {
+            try {
+                _plant.value?.lastWatered = LocalDateTime.now().toString()
+                PlantCareApi.retrofitService.editPlant(_plant.value?.id!!, _plant.value!!)
+                fillWaterNext()
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 }

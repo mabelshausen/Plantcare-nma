@@ -27,6 +27,8 @@ class PlantFragment : Fragment() {
         binding.plantViewModel = viewModel
         binding.setLifecycleOwner(viewLifecycleOwner)
 
+        binding.waterButton.setOnClickListener { viewModel.waterPlant() }
+
         return binding.root
     }
 

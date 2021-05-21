@@ -66,5 +66,14 @@
             app:layout_constraintStart_toStartOf="@+id/waterFreq"
             app:layout_constraintTop_toBottomOf="@+id/waterFreq"
             android:text="@{plantViewModel.waterNext}"/>
+
+        <Button
+            android:id="@+id/waterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/water"
+            app:layout_constraintEnd_toEndOf="@+id/waterNext"
+            app:layout_constraintStart_toStartOf="@+id/waterNext"
+            app:layout_constraintTop_toBottomOf="@+id/waterNext" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
