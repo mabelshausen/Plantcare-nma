@@ -8,6 +8,10 @@ import be.howest.marijnabelshausen.plantcare.domain.Plant
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
 
@@ -21,9 +25,17 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
     val sciName: LiveData<String>
         get() = _sciName
 
-    private val _age = MutableLiveData<String>()
-    val age: LiveData<String>
+    private val _age = MutableLiveData<Int>()
+    val age: LiveData<Int>
         get() = _age
+
+    private val _waterFreq = MutableLiveData<Int>()
+    val waterFreq: LiveData<Int>
+        get() = _waterFreq
+
+    private val _waterNext = MutableLiveData<String>()
+    val waterNext: LiveData<String>
+        get() = _waterNext
 
 
     init {
@@ -37,7 +49,16 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
                 _plant.value = plant
                 _name.value = _plant.value?.name
                 _sciName.value = _plant.value?.sciName
-                _age.value = _plant.value?.age.toString()
+                _age.value = _plant.value?.age
+                _waterFreq.value = _plant.value?.waterFreq
+                val lastWatered = LocalDateTime.parse(_plant.value?.lastWatered, DateTimeFormatter.ISO_DATE_TIME)
+                val diff = Duration.between(lastWatered, LocalDateTime.now())
+                val waterFreqHrs = _waterFreq.value?.times(24) ?: 0
+                if (diff.toHours() >= waterFreqHrs) {
+                    _waterNext.value = "Water now!"
+                } else {
+                    _waterNext.value = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
+                }
             } catch (e: Exception) {
                 //TODO
             }

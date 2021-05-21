@@ -45,6 +45,26 @@
             app:layout_constraintEnd_toEndOf="@+id/sci_name"
             app:layout_constraintStart_toStartOf="@+id/sci_name"
             app:layout_constraintTop_toBottomOf="@+id/sci_name"
-            android:text="@{plantViewModel.age}"/>
+            android:text="@{plantViewModel.age.toString()}"/>
+
+        <TextView
+            android:id="@+id/waterFreq"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/age"
+            app:layout_constraintStart_toStartOf="@+id/age"
+            app:layout_constraintTop_toBottomOf="@+id/age"
+            android:text="@{plantViewModel.waterFreq.toString()}"/>
+
+        <TextView
+            android:id="@+id/waterNext"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/waterFreq"
+            app:layout_constraintStart_toStartOf="@+id/waterFreq"
+            app:layout_constraintTop_toBottomOf="@+id/waterFreq"
+            android:text="@{plantViewModel.waterNext}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
