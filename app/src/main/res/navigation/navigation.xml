@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_waterFragment_to_plantFragment"
             app:destination="@id/plantFragment" />
+        <action
+            android:id="@+id/action_waterFragment_to_plantFormFragment"
+            app:destination="@id/plantFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/plantFragment"
@@ -22,6 +25,9 @@
         <argument
             android:name="plantId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_plantFragment_to_plantFormFragment"
+            app:destination="@id/plantFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomsFragment"
@@ -32,4 +38,9 @@
             android:id="@+id/action_roomsFragment_to_plantFragment"
             app:destination="@id/plantFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/plantFormFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.plant.PlantFormFragment"
+        android:label="plant_form_fragment"
+        tools:layout="@layout/plant_form_fragment" />
 </navigation>
