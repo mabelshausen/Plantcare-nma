@@ -35,11 +35,11 @@
         android:label="@string/rooms"
         tools:layout="@layout/rooms_fragment">
         <action
-            android:id="@+id/action_roomsFragment_to_plantFragment"
-            app:destination="@id/plantFragment" />
-        <action
             android:id="@+id/action_roomsFragment_to_roomFormFragment"
             app:destination="@id/roomFormFragment" />
+        <action
+            android:id="@+id/action_roomsFragment_to_roomDetailFragment"
+            app:destination="@id/roomDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/plantFormFragment"
@@ -51,4 +51,16 @@
         android:name="be.howest.marijnabelshausen.plantcare.room.RoomFormFragment"
         android:label="room_form_fragment"
         tools:layout="@layout/room_form_fragment" />
+    <fragment
+        android:id="@+id/roomDetailFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.room.RoomDetailFragment"
+        android:label="room_detail_fragment"
+        tools:layout="@layout/room_detail_fragment" >
+        <action
+            android:id="@+id/action_roomDetailFragment_to_roomFormFragment"
+            app:destination="@id/roomFormFragment" />
+        <action
+            android:id="@+id/action_roomDetailFragment_to_plantFragment"
+            app:destination="@id/plantFragment" />
+    </fragment>
 </navigation>
