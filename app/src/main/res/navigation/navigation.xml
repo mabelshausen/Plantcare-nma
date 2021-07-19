@@ -37,10 +37,18 @@
         <action
             android:id="@+id/action_roomsFragment_to_plantFragment"
             app:destination="@id/plantFragment" />
+        <action
+            android:id="@+id/action_roomsFragment_to_roomFormFragment"
+            app:destination="@id/roomFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/plantFormFragment"
         android:name="be.howest.marijnabelshausen.plantcare.plant.PlantFormFragment"
         android:label="plant_form_fragment"
         tools:layout="@layout/plant_form_fragment" />
+    <fragment
+        android:id="@+id/roomFormFragment"
+        android:name="be.howest.marijnabelshausen.plantcare.room.RoomFormFragment"
+        android:label="room_form_fragment"
+        tools:layout="@layout/room_form_fragment" />
 </navigation>
