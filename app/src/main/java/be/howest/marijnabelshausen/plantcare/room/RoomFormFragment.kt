@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import be.howest.marijnabelshausen.plantcare.R
+import be.howest.marijnabelshausen.plantcare.databinding.RoomFormFragmentBinding
 
 class RoomFormFragment : Fragment() {
 
@@ -14,19 +15,19 @@ class RoomFormFragment : Fragment() {
         fun newInstance() = RoomFormFragment()
     }
 
-    private lateinit var viewModel: RoomFormViewModel
+    private val viewModel: RoomFormViewModel by lazy {
+        ViewModelProvider(this).get(RoomFormViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.room_form_fragment, container, false)
-    }
+        val binding = RoomFormFragmentBinding.inflate(inflater)
+        binding.setLifecycleOwner(this)
+        binding.viewModel = viewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RoomFormViewModel::class.java)
-        // TODO: Use the ViewModel
+        return binding.root
     }
 
 }
