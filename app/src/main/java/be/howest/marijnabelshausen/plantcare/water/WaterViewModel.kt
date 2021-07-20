@@ -26,6 +26,11 @@ class WaterViewModel : ViewModel() {
     val navigateToPlant
         get() = _navigateToPlant
 
+    private val _navigateToPlantForm = MutableLiveData<Int?>()
+
+    val navigateToPlantForm
+        get() = _navigateToPlantForm
+
     init {
         getPlants()
     }
@@ -50,6 +55,10 @@ class WaterViewModel : ViewModel() {
     }
 
     fun onAddButtonClicked() {
-        TODO("Not yet implemented")
+        _navigateToPlantForm.value = 0
+    }
+
+    fun onPlantFormNavigated() {
+        _navigateToPlantForm.value = null
     }
 }

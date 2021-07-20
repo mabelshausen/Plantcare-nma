@@ -45,6 +45,13 @@ class WaterFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToPlantForm.observe(viewLifecycleOwner, Observer { plantId ->
+            plantId?.let {
+                this.findNavController().navigate(WaterFragmentDirections.actionWaterFragmentToPlantFormFragment(plantId))
+                viewModel.onPlantFormNavigated()
+            }
+        })
+
         setHasOptionsMenu(true)
 
         return binding.root
