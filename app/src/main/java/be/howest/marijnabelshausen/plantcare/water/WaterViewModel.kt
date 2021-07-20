@@ -48,4 +48,8 @@ class WaterViewModel : ViewModel() {
     fun onPlantNavigated() {
         _navigateToPlant.value = null
     }
+
+    fun onAddButtonClicked() {
+        TODO("Not yet implemented")
+    }
 }
