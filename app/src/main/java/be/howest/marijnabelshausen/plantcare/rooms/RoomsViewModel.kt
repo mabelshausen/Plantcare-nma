@@ -42,4 +42,8 @@ class RoomsViewModel : ViewModel() {
     fun onRoomNavigated() {
         _navigateToRoom.value = null
     }
+
+    fun onAddButtonClicked() {
+        TODO("Not yet implemented")
+    }
 }
