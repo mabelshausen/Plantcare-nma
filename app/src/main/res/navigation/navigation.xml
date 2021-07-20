@@ -54,7 +54,11 @@
         android:id="@+id/roomFormFragment"
         android:name="be.howest.marijnabelshausen.plantcare.room.RoomFormFragment"
         android:label="room_form_fragment"
-        tools:layout="@layout/room_form_fragment" />
+        tools:layout="@layout/room_form_fragment" >
+        <argument
+            android:name="roomId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="be.howest.marijnabelshausen.plantcare.room.RoomDetailFragment"
@@ -66,5 +70,8 @@
         <action
             android:id="@+id/action_roomDetailFragment_to_plantFragment"
             app:destination="@id/plantFragment" />
+        <argument
+            android:name="roomId"
+            app:argType="integer" />
     </fragment>
 </navigation>

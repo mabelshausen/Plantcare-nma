@@ -21,6 +21,11 @@ class RoomsViewModel : ViewModel() {
     val navigateToRoom
         get() = _navigateToRoom
 
+    private val _navigateToRoomForm = MutableLiveData<Int?>()
+
+    val navigateToRoomForm
+        get() = _navigateToRoomForm
+
     init {
         getRooms()
     }
@@ -44,6 +49,10 @@ class RoomsViewModel : ViewModel() {
     }
 
     fun onAddButtonClicked() {
-        TODO("Not yet implemented")
+        _navigateToRoomForm.value = 0
+    }
+
+    fun onRoomFormNavigated() {
+        _navigateToRoomForm.value = null
     }
 }

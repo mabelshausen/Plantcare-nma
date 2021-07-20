@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.RoomsFragmentBinding
 import be.howest.marijnabelshausen.plantcare.domain.Room
@@ -35,6 +36,20 @@ class RoomsFragment : Fragment() {
         viewModel.rooms.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
+            }
+        })
+
+        viewModel.navigateToRoom.observe(viewLifecycleOwner, Observer { roomId ->
+            roomId?.let {
+                this.findNavController().navigate(RoomsFragmentDirections.actionRoomsFragmentToRoomDetailFragment(roomId))
+                viewModel.onRoomNavigated()
+            }
+        })
+
+        viewModel.navigateToRoomForm.observe(viewLifecycleOwner, Observer { roomId ->
+            roomId?.let {
+                this.findNavController().navigate(RoomsFragmentDirections.actionRoomsFragmentToRoomFormFragment(roomId))
+                viewModel.onRoomNavigated()
             }
         })
 
