@@ -3,4 +3,5 @@
     <string name="rooms">My Rooms</string>
     <string name="plant">Plant Details</string>
     <string name="water">Water</string>
+    <string name="addButton">Add</string>
 </resources>
