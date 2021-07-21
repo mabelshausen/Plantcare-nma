@@ -37,6 +37,9 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
     val waterNext: LiveData<String>
         get() = _waterNext
 
+    private val _navigateToPlantForm = MutableLiveData<Int?>()
+    val navigateToPlantForm
+        get() = _navigateToPlantForm
 
     init {
         getPlant()
@@ -79,5 +82,13 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
                 throw e
             }
         }
+    }
+
+    fun onEditButtonClicked() {
+        _navigateToPlantForm.value = _plant.value?.id
+    }
+
+    fun onPlantFormNavigated() {
+        _navigateToPlantForm.value = null
     }
 }
