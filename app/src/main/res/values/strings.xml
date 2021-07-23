@@ -6,4 +6,5 @@
     <string name="addButton">Add</string>
     <string name="editButton">Edit</string>
     <string name="saveButton">Save</string>
+    <string name="room_name">Room Name</string>
 </resources>
