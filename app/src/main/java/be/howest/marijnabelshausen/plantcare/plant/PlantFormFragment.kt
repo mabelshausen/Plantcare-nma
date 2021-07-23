@@ -2,10 +2,8 @@ package be.howest.marijnabelshausen.plantcare.plant
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFormFragmentBinding
 
@@ -27,7 +25,23 @@ class PlantFormFragment : Fragment() {
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.save_button_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.saveButton -> {
+                viewModel.onSaveButtonClicked()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
