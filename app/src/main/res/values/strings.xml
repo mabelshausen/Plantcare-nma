@@ -7,4 +7,8 @@
     <string name="editButton">Edit</string>
     <string name="saveButton">Save</string>
     <string name="room_name">Room Name</string>
+    <string name="name">Name</string>
+    <string name="scientific_name">Scientific Name</string>
+    <string name="age">Age</string>
+    <string name="days_between_watering">Days between watering</string>
 </resources>
