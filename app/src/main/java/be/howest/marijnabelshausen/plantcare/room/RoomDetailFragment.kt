@@ -16,7 +16,10 @@ class RoomDetailFragment : Fragment() {
     }
 
     private val viewModel: RoomDetailViewModel by lazy {
-        ViewModelProvider(this).get(RoomDetailViewModel::class.java)
+        ViewModelProvider(this,
+            RoomDetailViewModelFactory(
+                RoomDetailFragmentArgs.fromBundle(requireArguments()).roomId))
+            .get(RoomDetailViewModel::class.java)
     }
 
     override fun onCreateView(
