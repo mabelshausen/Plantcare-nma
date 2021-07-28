@@ -1,6 +1,7 @@
 package be.howest.marijnabelshausen.plantcare.room
 
 import android.content.res.Resources
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,15 +18,13 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
 
     private val _room = MutableLiveData<Room>()
 
-    private val _name = MutableLiveData<String>()
-    val name: LiveData<String>
-        get() = _name
+    val _name = MutableLiveData<String>()
 
     init {
         if (isEdit) {
             getRoom()
         } else {
-            _name.value = Resources.getSystem().getString(R.string.room_name)
+            _name.value = "Room Name"
         }
     }
 
@@ -41,7 +40,7 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         }
     }
 
-    fun onSaveButtonClicked() {
+    suspend fun onSaveButtonClicked() {
         if (isEdit) {
             editRoom()
         } else {
@@ -49,11 +48,28 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         }
     }
 
-    private fun addRoom() {
+    private suspend fun addRoom() {
+        _room.value = Room(0, _name.value!!)
+        //validateRoom()
+        try {
+            PlantCareApi.retrofitService.addRoom(_room.value!!)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    private suspend fun editRoom() {
+        _room.value!!.name = _name.value!!
+        //validateRoom()
+        try {
+            PlantCareApi.retrofitService.editRoom(roomId, _room.value!!)
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    private fun validateRoom() {
         TODO("Not yet implemented")
     }
 
-    private fun editRoom() {
-        TODO("Not yet implemented")
-    }
 }

@@ -6,6 +6,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.RoomFormFragmentBinding
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class RoomFormFragment : Fragment() {
 
@@ -41,7 +43,9 @@ class RoomFormFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.saveButton -> {
-                viewModel.onSaveButtonClicked()
+                runBlocking {
+                    launch { viewModel.onSaveButtonClicked() }
+                }
             }
         }
         return super.onOptionsItemSelected(item)
