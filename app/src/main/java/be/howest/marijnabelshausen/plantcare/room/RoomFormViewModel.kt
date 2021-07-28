@@ -20,6 +20,14 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
 
     val _name = MutableLiveData<String>()
 
+    private val _navigateToRooms = MutableLiveData<Int?>()
+    val navigateToRooms
+        get() = _navigateToRooms
+
+    private val _navigateToRoomDetail = MutableLiveData<Int?>()
+    val navigateToRoomDetail
+        get() = _navigateToRoomDetail
+
     init {
         if (isEdit) {
             getRoom()
@@ -53,6 +61,7 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         //validateRoom()
         try {
             PlantCareApi.retrofitService.addRoom(_room.value!!)
+            _navigateToRooms.value = 1
         } catch (e: Exception) {
             throw e
         }
@@ -63,6 +72,7 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         //validateRoom()
         try {
             PlantCareApi.retrofitService.editRoom(roomId, _room.value!!)
+            _navigateToRoomDetail.value = roomId
         } catch (e: Exception) {
             throw e
         }
@@ -70,6 +80,14 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
 
     private fun validateRoom() {
         TODO("Not yet implemented")
+    }
+
+    fun onRoomsNavigated() {
+        _navigateToRooms.value = null
+    }
+
+    fun onRoomDetailNavigated() {
+        _navigateToRoomDetail.value = null
     }
 
 }

@@ -1,9 +1,12 @@
 package be.howest.marijnabelshausen.plantcare.room
 
+import android.content.res.ObbInfo
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.RoomFormFragmentBinding
 import kotlinx.coroutines.launch
@@ -31,6 +34,20 @@ class RoomFormFragment : Fragment() {
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+
+        viewModel.navigateToRooms.observe(viewLifecycleOwner, Observer { roomId ->
+            roomId?.let {
+                this.findNavController().navigate(RoomFormFragmentDirections.actionRoomFormFragmentToRoomsFragment())
+                viewModel.onRoomsNavigated()
+            }
+        })
+
+        viewModel.navigateToRoomDetail.observe(viewLifecycleOwner, Observer { roomId ->
+            roomId?.let {
+                this.findNavController().navigate(RoomFormFragmentDirections.actionRoomFormFragmentToRoomDetailFragment(roomId))
+                viewModel.onRoomDetailNavigated()
+            }
+        })
 
         return binding.root
     }
