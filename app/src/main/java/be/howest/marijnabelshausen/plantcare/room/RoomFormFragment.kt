@@ -14,7 +14,10 @@ class RoomFormFragment : Fragment() {
     }
 
     private val viewModel: RoomFormViewModel by lazy {
-        ViewModelProvider(this).get(RoomFormViewModel::class.java)
+        ViewModelProvider(this,
+            RoomFormViewModelFactory(
+                RoomFormFragmentArgs.fromBundle(requireArguments()).roomId))
+            .get(RoomFormViewModel::class.java)
     }
 
     override fun onCreateView(
