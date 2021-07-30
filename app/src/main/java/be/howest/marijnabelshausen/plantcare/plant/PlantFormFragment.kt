@@ -14,7 +14,10 @@ class PlantFormFragment : Fragment() {
     }
 
     private val viewModel: PlantFormViewModel by lazy {
-        ViewModelProvider(this).get(PlantFormViewModel::class.java)
+        ViewModelProvider(this,
+            PlantFormViewModelFactory(
+                PlantFormFragmentArgs.fromBundle(requireArguments()).plantId))
+            .get(PlantFormViewModel::class.java)
     }
 
     override fun onCreateView(
