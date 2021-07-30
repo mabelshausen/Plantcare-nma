@@ -49,6 +49,12 @@
         <argument
             android:name="plantId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_plantFormFragment_to_waterFragment"
+            app:destination="@id/waterFragment" />
+        <action
+            android:id="@+id/action_plantFormFragment_to_plantFragment"
+            app:destination="@id/plantFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomFormFragment"

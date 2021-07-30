@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFormFragmentBinding
 
@@ -29,6 +31,20 @@ class PlantFormFragment : Fragment() {
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+
+        viewModel.navigateToPlants.observe(viewLifecycleOwner, Observer { plantId ->
+            plantId?.let {
+                this.findNavController().navigate(PlantFormFragmentDirections.actionPlantFormFragmentToWaterFragment())
+                viewModel.onPlantsNavigated()
+            }
+        })
+
+        viewModel.navigateToPlantDetail.observe(viewLifecycleOwner, Observer { plantId ->
+            plantId?.let {
+                this.findNavController().navigate(PlantFormFragmentDirections.actionPlantFormFragmentToPlantFragment(plantId))
+                viewModel.onPlantDetailNavigated()
+            }
+        })
 
         return binding.root
     }

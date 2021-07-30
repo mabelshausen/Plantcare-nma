@@ -99,4 +99,12 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
     private fun validatePlant() {
         TODO("Not yet implemented")
     }
+
+    fun onPlantsNavigated() {
+        _navigateToPlants.value = null
+    }
+
+    fun onPlantDetailNavigated() {
+        _navigateToPlantDetail.value = null
+    }
 }
