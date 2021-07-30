@@ -60,9 +60,7 @@ class RoomFormFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.saveButton -> {
-                runBlocking {
-                    launch { viewModel.onSaveButtonClicked() }
-                }
+                viewModel.onSaveButtonClicked()
             }
         }
         return super.onOptionsItemSelected(item)

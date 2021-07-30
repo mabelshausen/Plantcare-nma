@@ -48,7 +48,7 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         }
     }
 
-    suspend fun onSaveButtonClicked() {
+    fun onSaveButtonClicked() {
         if (isEdit) {
             editRoom()
         } else {
@@ -56,25 +56,29 @@ class RoomFormViewModel(private val roomId: Int) : ViewModel() {
         }
     }
 
-    private suspend fun addRoom() {
+    private fun addRoom() {
         _room.value = Room(0, _name.value!!)
         //validateRoom()
-        try {
-            PlantCareApi.retrofitService.addRoom(_room.value!!)
-            _navigateToRooms.value = 1
-        } catch (e: Exception) {
-            throw e
+        viewModelScope.launch {
+            try {
+                PlantCareApi.retrofitService.addRoom(_room.value!!)
+                _navigateToRooms.value = 1
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 
-    private suspend fun editRoom() {
+    private fun editRoom() {
         _room.value!!.name = _name.value!!
         //validateRoom()
-        try {
-            PlantCareApi.retrofitService.editRoom(roomId, _room.value!!)
-            _navigateToRoomDetail.value = roomId
-        } catch (e: Exception) {
-            throw e
+        viewModelScope.launch {
+            try {
+                PlantCareApi.retrofitService.editRoom(roomId, _room.value!!)
+                _navigateToRoomDetail.value = roomId
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 
