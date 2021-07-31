@@ -3,11 +3,13 @@ package be.howest.marijnabelshausen.plantcare.plant
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFormFragmentBinding
+import be.howest.marijnabelshausen.plantcare.domain.Room
 
 class PlantFormFragment : Fragment() {
 
@@ -29,6 +31,21 @@ class PlantFormFragment : Fragment() {
         val binding = PlantFormFragmentBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
+
+        binding.spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.selectedRoom.value = viewModel.rooms.value?.get(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
 
         setHasOptionsMenu(true)
 

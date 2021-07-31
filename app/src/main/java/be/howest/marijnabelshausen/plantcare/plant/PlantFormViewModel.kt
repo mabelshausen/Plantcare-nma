@@ -1,9 +1,11 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import be.howest.marijnabelshausen.plantcare.domain.Plant
+import be.howest.marijnabelshausen.plantcare.domain.Room
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -12,12 +14,25 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
 
     private var isEdit = (plantId != 0)
 
+    private val _rooms = MutableLiveData<List<Room>>()
+    val rooms: LiveData<List<Room>>
+        get() = _rooms
+
+    private val _names = MutableLiveData<List<String>>()
+    val names: LiveData<List<String>>
+        get() = _names
+
+    val selectedRoom = MutableLiveData<Room>()
+
     private val _plant = MutableLiveData<Plant>()
 
     val name = MutableLiveData<String>()
     val sciName = MutableLiveData<String>()
     val age = MutableLiveData<String>()
     val waterFreq = MutableLiveData<String>()
+    val roomId = MutableLiveData<Int>()
+
+    val spinnerSelectedPosition = MutableLiveData<Int>()
 
     private val _navigateToPlants = MutableLiveData<Int?>()
     val navigateToPlants
@@ -28,6 +43,7 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
         get() = _navigateToPlantDetail
 
     init {
+        fillRooms()
         if (isEdit) {
             getPlant()
         } else {
@@ -35,6 +51,18 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
             sciName.value = "Scientific Name"
             age.value = "Age (in years)"
             waterFreq.value = "Days between watering"
+        }
+    }
+
+    private fun fillRooms() {
+        viewModelScope.launch {
+            try {
+                val rooms = PlantCareApi.retrofitService.getRooms()
+                _rooms.value = rooms
+                _names.value = rooms.map{ room -> room.name }
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 
@@ -69,7 +97,7 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
             age = age.value!!.toInt(),
             waterFreq = waterFreq.value!!.toInt(),
             lastWatered = "",
-            room_id = 1)
+            room_id = selectedRoom.value!!.id)
         viewModelScope.launch {
             try {
                 PlantCareApi.retrofitService.addPlant(_plant.value!!)
