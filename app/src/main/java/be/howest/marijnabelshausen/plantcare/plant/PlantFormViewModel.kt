@@ -1,5 +1,6 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import android.widget.Spinner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,8 +32,6 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
     val age = MutableLiveData<String>()
     val waterFreq = MutableLiveData<String>()
     val roomId = MutableLiveData<Int>()
-
-    val spinnerSelectedPosition = MutableLiveData<Int>()
 
     private val _navigateToPlants = MutableLiveData<Int?>()
     val navigateToPlants
@@ -75,6 +74,7 @@ class PlantFormViewModel(private val plantId: Int) : ViewModel() {
                 sciName.value = _plant.value?.sciName
                 age.value = _plant.value?.age.toString()
                 waterFreq.value = _plant.value?.waterFreq.toString()
+                selectedRoom.value = _rooms.value?.get(_plant.value!!.room_id)
             } catch (e: Exception) {
                 throw e
             }
