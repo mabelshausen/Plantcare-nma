@@ -32,6 +32,7 @@ class PlantFragment : Fragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.waterButton.setOnClickListener { viewModel.waterPlant() }
+        binding.cameraButton.setOnClickListener { viewModel.cameraButtonClicked() }
 
         setHasOptionsMenu(true)
 

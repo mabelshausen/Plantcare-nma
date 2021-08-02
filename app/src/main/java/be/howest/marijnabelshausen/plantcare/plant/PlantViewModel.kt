@@ -91,4 +91,8 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
     fun onPlantFormNavigated() {
         _navigateToPlantForm.value = null
     }
+
+    fun cameraButtonClicked() {
+        TODO("Not yet implemented")
+    }
 }
