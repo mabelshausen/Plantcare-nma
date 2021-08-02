@@ -1,16 +1,28 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFragmentBinding
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PlantFragment : Fragment() {
+
+    lateinit var currentPhotoPath: String
 
     companion object {
         fun newInstance() = PlantFragment()
@@ -35,7 +47,7 @@ class PlantFragment : Fragment() {
         binding.waterButton.setOnClickListener { viewModel.waterPlant() }
         binding.cameraButton.setOnClickListener {
             if (context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                viewModel.cameraButtonClicked()
+                dispatchTakePictureIntent(requireContext())
             }
         }
 
@@ -63,6 +75,38 @@ class PlantFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(context: Context): File {
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        return File.createTempFile("JPEG_${timestamp}_", ".jpeg", storageDir).apply {
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun dispatchTakePictureIntent(context: Context) {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(context.packageManager)?.also {
+                val photoFile: File? = try {
+                    createImageFile(context)
+                } catch (e : IOException) {
+                    throw e
+                }
+
+                photoFile?.also {
+                    val photoURI = FileProvider.getUriForFile(
+                        context,
+                        "be.howest.marijnabelshausen.plantcare.fileprovider",
+                        it)
+
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, 1, null)
+                }
+            }
+        }
     }
 
 }

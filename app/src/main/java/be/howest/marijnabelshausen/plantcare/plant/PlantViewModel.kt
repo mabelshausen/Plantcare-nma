@@ -1,13 +1,22 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Activity
+import android.app.Application
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.FileProvider
+import androidx.lifecycle.*
 import be.howest.marijnabelshausen.plantcare.domain.Plant
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.IOException
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -92,7 +101,4 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
         _navigateToPlantForm.value = null
     }
 
-    fun cameraButtonClicked() {
-
-    }
 }
