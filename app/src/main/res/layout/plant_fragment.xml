@@ -9,71 +9,85 @@
             type="be.howest.marijnabelshausen.plantcare.plant.PlantViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        tools:context=".plant.PlantFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{plantViewModel.name}"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            tools:context=".plant.PlantFragment">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{plantViewModel.name}"/>
 
 
-        <TextView
-            android:id="@+id/sci_name"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            android:text="@{plantViewModel.sciName}"/>
+            <TextView
+                android:id="@+id/sci_name"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                android:text="@{plantViewModel.sciName}"/>
 
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/sci_name"
-            app:layout_constraintStart_toStartOf="@+id/sci_name"
-            app:layout_constraintTop_toBottomOf="@+id/sci_name"
-            android:text="@{plantViewModel.age.toString()}"/>
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/sci_name"
+                app:layout_constraintStart_toStartOf="@+id/sci_name"
+                app:layout_constraintTop_toBottomOf="@+id/sci_name"
+                android:text="@{plantViewModel.age.toString()}"/>
 
-        <TextView
-            android:id="@+id/waterFreq"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/age"
-            app:layout_constraintStart_toStartOf="@+id/age"
-            app:layout_constraintTop_toBottomOf="@+id/age"
-            android:text="@{plantViewModel.waterFreq.toString()}"/>
+            <TextView
+                android:id="@+id/waterFreq"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/age"
+                app:layout_constraintStart_toStartOf="@+id/age"
+                app:layout_constraintTop_toBottomOf="@+id/age"
+                android:text="@{plantViewModel.waterFreq.toString()}"/>
 
-        <TextView
-            android:id="@+id/waterNext"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/waterFreq"
-            app:layout_constraintStart_toStartOf="@+id/waterFreq"
-            app:layout_constraintTop_toBottomOf="@+id/waterFreq"
-            android:text="@{plantViewModel.waterNext}"/>
+            <TextView
+                android:id="@+id/waterNext"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/waterFreq"
+                app:layout_constraintStart_toStartOf="@+id/waterFreq"
+                app:layout_constraintTop_toBottomOf="@+id/waterFreq"
+                android:text="@{plantViewModel.waterNext}"/>
 
-        <Button
-            android:id="@+id/waterButton"
+            <Button
+                android:id="@+id/waterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/water"
+                app:layout_constraintEnd_toEndOf="@+id/waterNext"
+                app:layout_constraintStart_toStartOf="@+id/waterNext"
+                app:layout_constraintTop_toBottomOf="@+id/waterNext" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/water"
-            app:layout_constraintEnd_toEndOf="@+id/waterNext"
-            app:layout_constraintStart_toStartOf="@+id/waterNext"
-            app:layout_constraintTop_toBottomOf="@+id/waterNext" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_baseline_photo_camera_24"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
