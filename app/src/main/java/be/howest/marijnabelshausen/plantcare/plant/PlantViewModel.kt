@@ -93,6 +93,6 @@ class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
     }
 
     fun cameraButtonClicked() {
-        TODO("Not yet implemented")
+
     }
 }

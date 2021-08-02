@@ -1,5 +1,6 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
@@ -32,7 +33,11 @@ class PlantFragment : Fragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.waterButton.setOnClickListener { viewModel.waterPlant() }
-        binding.cameraButton.setOnClickListener { viewModel.cameraButtonClicked() }
+        binding.cameraButton.setOnClickListener {
+            if (context?.packageManager!!.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                viewModel.cameraButtonClicked()
+            }
+        }
 
         setHasOptionsMenu(true)
 
