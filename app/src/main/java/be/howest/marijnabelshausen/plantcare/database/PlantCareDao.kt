@@ -13,4 +13,7 @@ interface PlantCareDao {
 
     @Query("SELECT * FROM plant_image WHERE plant_id = :plantId")
     fun getByPlantId(plantId: Int): List<PlantImage>?
+
+    @Query("SELECT * FROM plant_image WHERE plant_id = :plantId ORDER BY timestamp DESC LIMIT 1")
+    fun getLatestImage(plantId: Int): PlantImage?
 }
