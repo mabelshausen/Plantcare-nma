@@ -1,6 +1,9 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import android.app.Application
 import androidx.lifecycle.*
+import be.howest.marijnabelshausen.plantcare.database.PlantCareDao
+import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.domain.Plant
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
@@ -9,7 +12,9 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class PlantViewModel(private val plantId: Int = 0) : ViewModel() {
+class PlantViewModel(private val plantId: Int = 0,
+                     val database: PlantCareDao,
+                     application: Application) : AndroidViewModel(application) {
 
     private val _plant = MutableLiveData<Plant>()
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
+import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFragmentBinding
 import java.io.File
 import java.io.IOException
@@ -23,6 +24,8 @@ import java.util.*
 class PlantFragment : Fragment() {
 
     lateinit var currentPhotoPath: String
+    private val application = requireNotNull(this.activity).application
+    private val dataSource = PlantCareDatabase.getInstance(application).plantCareDao
 
     companion object {
         fun newInstance() = PlantFragment()
@@ -31,7 +34,9 @@ class PlantFragment : Fragment() {
     private val viewModel: PlantViewModel by lazy {
         ViewModelProvider(this,
             PlantViewModelFactory(
-                PlantFragmentArgs.fromBundle(requireArguments()).plantId))
+                PlantFragmentArgs.fromBundle(requireArguments()).plantId,
+                dataSource,
+                application))
             .get(PlantViewModel::class.java)
     }
 
