@@ -80,6 +80,13 @@
                 app:layout_constraintStart_toStartOf="@+id/waterNext"
                 app:layout_constraintTop_toBottomOf="@+id/waterNext" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/image_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/waterButton" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
