@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import be.howest.marijnabelshausen.plantcare.database.PlantCareDao
 import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.domain.Plant
+import be.howest.marijnabelshausen.plantcare.domain.PlantImage
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -94,7 +95,13 @@ class PlantViewModel(private val plantId: Int = 0,
     }
 
     fun addPlantImage(photoPath: String, timeStamp: String) {
-        println("Returned from Camera Activity")
+        viewModelScope.launch {
+            try {
+                database.insert(PlantImage(_plant.value!!.id, photoPath, timeStamp))
+            } catch (e: Exception) {
+                throw e
+            }
+        }
     }
 
 }
