@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.howest.marijnabelshausen.plantcare.R
+import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.databinding.WaterFragmentBinding
 
 class WaterFragment : Fragment() {
@@ -29,7 +30,7 @@ class WaterFragment : Fragment() {
 
         val adapter = PlantAdapter(PlantListener { plantId ->
             viewModel.onPlantClicked(plantId)
-        })
+        }, PlantCareDatabase.getInstance(requireNotNull(this.activity).application).plantCareDao)
         binding.plantList.adapter = adapter
 
         viewModel.plants.observe(viewLifecycleOwner, Observer {

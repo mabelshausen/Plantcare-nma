@@ -1,16 +1,20 @@
 package be.howest.marijnabelshausen.plantcare.water
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import be.howest.marijnabelshausen.plantcare.database.PlantCareDao
 import be.howest.marijnabelshausen.plantcare.databinding.PlantListViewItemBinding
 import be.howest.marijnabelshausen.plantcare.domain.Plant
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
+
+class PlantAdapter(val clickListener: PlantListener, val database: PlantCareDao) : RecyclerView.Adapter<PlantAdapter.ViewHolder>() {
 
     var data =  listOf<Plant>()
         set(value) {
@@ -25,16 +29,17 @@ class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<Plan
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item, clickListener)
+        holder.bind(item, clickListener, database)
     }
 
     override fun getItemCount() = data.size
 
     class ViewHolder private constructor(val binding: PlantListViewItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Plant, clickListener: PlantListener) {
+        fun bind(item: Plant, clickListener: PlantListener, database: PlantCareDao) {
             binding.plant = item
             binding.plantName.text = item.name
+            binding.waterImage.setImageBitmap(null)
 
             val lastWatered = LocalDateTime.parse(item.lastWatered, DateTimeFormatter.ISO_DATE_TIME)
             val diff = Duration.between(lastWatered, LocalDateTime.now())
@@ -43,6 +48,20 @@ class PlantAdapter(val clickListener: PlantListener) : RecyclerView.Adapter<Plan
                 binding.nextWaterTime.text = "Water now!"
             } else {
                 binding.nextWaterTime.text = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
+            }
+
+            runBlocking {
+                launch {
+                    try {
+                        val plantImage = database.getLatestImage(item.id)
+                        if (plantImage != null) {
+                            println(plantImage)
+                            binding.waterImage.setImageBitmap(BitmapFactory.decodeFile(plantImage?.imagePath))
+                        }
+                    } catch (e: Exception) {
+                        throw e
+                    }
+                }
             }
 
             binding.clickListener  = clickListener
