@@ -1,5 +1,6 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -24,8 +25,9 @@ import java.util.*
 class PlantFragment : Fragment() {
 
     lateinit var currentPhotoPath: String
-    private val application = requireNotNull(this.activity).application
-    private val dataSource = PlantCareDatabase.getInstance(application).plantCareDao
+    lateinit var currentTimeStamp: String
+
+    val REQUEST_IMAGE_CAPTURE = 1
 
     companion object {
         fun newInstance() = PlantFragment()
@@ -35,8 +37,8 @@ class PlantFragment : Fragment() {
         ViewModelProvider(this,
             PlantViewModelFactory(
                 PlantFragmentArgs.fromBundle(requireArguments()).plantId,
-                dataSource,
-                application))
+                PlantCareDatabase.getInstance(requireNotNull(this.activity).application).plantCareDao,
+                requireNotNull(this.activity).application))
             .get(PlantViewModel::class.java)
     }
 
@@ -82,6 +84,12 @@ class PlantFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            viewModel.addPlantImage(currentPhotoPath, currentTimeStamp)
+        }
+    }
+
     @Throws(IOException::class)
     private fun createImageFile(context: Context): File {
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -89,6 +97,7 @@ class PlantFragment : Fragment() {
 
         return File.createTempFile("JPEG_${timestamp}_", ".jpeg", storageDir).apply {
             currentPhotoPath = absolutePath
+            currentTimeStamp = timestamp
         }
     }
 
@@ -108,7 +117,7 @@ class PlantFragment : Fragment() {
                         it)
 
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, 1, null)
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE, null)
                 }
             }
         }

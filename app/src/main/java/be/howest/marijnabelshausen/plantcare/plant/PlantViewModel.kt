@@ -93,4 +93,8 @@ class PlantViewModel(private val plantId: Int = 0,
         _navigateToPlantForm.value = null
     }
 
+    fun addPlantImage(photoPath: String, timeStamp: String) {
+        println("Returned from Camera Activity")
+    }
+
 }
