@@ -39,6 +39,11 @@ class PlantViewModel(private val plantId: Int = 0,
     val waterNext: LiveData<String>
         get() = _waterNext
 
+    private val _images = MutableLiveData<List<PlantImage>>()
+
+    val images: LiveData<List<PlantImage>>
+        get() = _images
+
     private val _navigateToPlantForm = MutableLiveData<Int?>()
     val navigateToPlantForm
         get() = _navigateToPlantForm
@@ -57,6 +62,7 @@ class PlantViewModel(private val plantId: Int = 0,
                 _age.value = _plant.value?.age
                 _waterFreq.value = _plant.value?.waterFreq
                 fillWaterNext()
+                getImages()
             } catch (e: Exception) {
                 throw e
             }
@@ -71,6 +77,16 @@ class PlantViewModel(private val plantId: Int = 0,
             _waterNext.value = "Water now!"
         } else {
             _waterNext.value = "Water in " + (waterFreqHrs - diff.toHours()) + " hours"
+        }
+    }
+
+    private fun getImages() {
+        viewModelScope.launch {
+            try {
+                _images.value = database.getByPlantId(_plant.value!!.id)
+            } catch (e: Exception) {
+                throw e
+            }
         }
     }
 

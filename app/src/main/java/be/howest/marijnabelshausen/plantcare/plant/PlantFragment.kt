@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFragmentBinding
+import be.howest.marijnabelshausen.plantcare.water.PlantAdapter
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -71,6 +72,15 @@ class PlantFragment : Fragment() {
 
         val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
         binding.imageGrid.layoutManager = manager
+
+        val adapter = PlantImageAdapter()
+        binding.imageGrid.adapter = adapter
+
+        viewModel.images.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
 
         return binding.root
     }
