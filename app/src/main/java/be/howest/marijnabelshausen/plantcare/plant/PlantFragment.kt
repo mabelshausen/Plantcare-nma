@@ -14,6 +14,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import be.howest.marijnabelshausen.plantcare.R
 import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.databinding.PlantFragmentBinding
@@ -43,6 +44,7 @@ class PlantFragment : Fragment() {
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -66,6 +68,9 @@ class PlantFragment : Fragment() {
                 viewModel.onPlantFormNavigated()
             }
         })
+
+        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.imageGrid.layoutManager = manager
 
         return binding.root
     }
