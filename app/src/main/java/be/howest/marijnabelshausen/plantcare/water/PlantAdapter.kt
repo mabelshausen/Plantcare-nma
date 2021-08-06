@@ -55,7 +55,6 @@ class PlantAdapter(val clickListener: PlantListener, val database: PlantCareDao)
                     try {
                         val plantImage = database.getLatestImage(item.id)
                         if (plantImage != null) {
-                            println(plantImage)
                             binding.waterImage.setImageBitmap(BitmapFactory.decodeFile(plantImage?.imagePath))
                         }
                     } catch (e: Exception) {
