@@ -11,4 +11,5 @@
     <string name="scientific_name">Scientific Name</string>
     <string name="age">Age</string>
     <string name="days_between_watering">Days between watering</string>
+    <string name="channel_name">water_notification_channel</string>
 </resources>

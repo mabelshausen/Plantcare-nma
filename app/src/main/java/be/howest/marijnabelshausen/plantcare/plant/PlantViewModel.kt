@@ -1,9 +1,10 @@
 package be.howest.marijnabelshausen.plantcare.plant
 
 import android.app.Application
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.*
 import be.howest.marijnabelshausen.plantcare.database.PlantCareDao
-import be.howest.marijnabelshausen.plantcare.database.PlantCareDatabase
 import be.howest.marijnabelshausen.plantcare.domain.Plant
 import be.howest.marijnabelshausen.plantcare.domain.PlantImage
 import be.howest.marijnabelshausen.plantcare.network.PlantCareApi
@@ -12,6 +13,8 @@ import java.lang.Exception
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import be.howest.marijnabelshausen.plantcare.R
+import java.util.*
 
 class PlantViewModel(private val plantId: Int = 0,
                      val database: PlantCareDao,
@@ -48,6 +51,8 @@ class PlantViewModel(private val plantId: Int = 0,
     val navigateToPlantForm
         get() = _navigateToPlantForm
 
+    private val CHANNEL_ID = "WATER_NOTIFICATION_CHANNEL"
+
     init {
         getPlant()
     }
@@ -80,6 +85,23 @@ class PlantViewModel(private val plantId: Int = 0,
         }
     }
 
+    private fun makeNotification() {
+        val waterFreqHrs = _waterFreq.value?.times(24) ?: 0
+        val notificationDate = Calendar.getInstance()
+        notificationDate.time = Date()
+        notificationDate.add(Calendar.HOUR_OF_DAY, waterFreqHrs)
+
+        var builder = NotificationCompat.Builder(getApplication(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_eco_24)
+            .setContentTitle("${_plant.value!!.name} needs to be watered!")
+            .setWhen(notificationDate.time.time)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(getApplication())) {
+            notify(_plant.value!!.id, builder.build())
+        }
+    }
+
     private fun getImages() {
         viewModelScope.launch {
             try {
@@ -96,6 +118,7 @@ class PlantViewModel(private val plantId: Int = 0,
                 _plant.value?.lastWatered = LocalDateTime.now().toString()
                 PlantCareApi.retrofitService.editPlant(_plant.value?.id!!, _plant.value!!)
                 fillWaterNext()
+                makeNotification()
             } catch (e: Exception) {
                 throw e
             }
